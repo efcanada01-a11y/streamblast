@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
-const app = express();
 
+const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, ".")));
 
@@ -14,7 +14,7 @@ app.post("/api/blast", (req, res) => {
     success: true,
     song: "Test Song",
     submittedTo: 27,
-    message: "Local test worked. Spotify not enabled yet."
+    message: "Local test worked. Spotify is not connected yet."
   });
 });
 
