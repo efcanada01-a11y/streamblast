@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<head>
+<title>🚀 StreamBlast - FREE Spotify Playlist Blasts!</title>
+<style>
+body { 
+  background: linear-gradient(135deg, #1db954, #191414); 
+  color: white; 
+  font-family: 'Arial', sans-serif; 
+  text-align: center; 
+  padding: 50px; 
+  min-height: 100vh; 
+}
+.logo { font-size: 48px; font-weight: bold; margin-bottom: 20px; }
+.hero { font-size: 24px; margin: 20px 0; }
+input { 
+  width: 400px; 
+  padding: 15px; 
+  font-size: 18px; 
+  border-radius: 25px; 
+  border: none; 
+  margin: 10px; 
+}
+.blast-btn { 
+  background: #1db954; 
+  color: white; 
+  border: none; 
+  padding: 15px 40px; 
+  font-size: 20px; 
+  border-radius: 25px; 
+  cursor: pointer; 
+  margin: 10px; 
+  font-weight: bold;
+}
+.premium-btn { 
+  background: #ffcc00; 
+  color: #191414; 
+  border: none; 
+  padding: 15px 40px; 
+  font-size: 20px; 
+  border-radius: 25px; 
+  cursor: pointer; 
+  margin: 10px; 
+  font-weight: bold;
+}
+.results { 
+  max-width: 600px; 
+  margin: 30px auto; 
+  background: rgba(255,255,255,0.1); 
+  padding: 30px; 
+  border-radius: 20px; 
+  backdrop-filter: blur(10px);
+}
+.playlist { 
+  background: rgba(0,0,0,0.3); 
+  padding: 15px; 
+  margin: 10px 0; 
+  border-radius: 10px; 
+  text-align: left;
+}
+</style>
+</head>
+<body>
+  <div class="logo">⚡ StreamBlast</div>
+  <div class="hero">Get Your Song on Spotify Playlists in 24 Hours!</div>
+  <p style="font-size: 18px;">Paste your Spotify song link → We blast to 50+ FREE curators</p>
+  
+  <input id="songUrl" placeholder="https://open.spotify.com/track/..." />
+  <br>
+  <button class="blast-btn" onclick="blastSong()">🎯 BLAST FREE (5/day)</button>
+  <button class="premium-btn" onclick="showPremium()">💎 UPGRADE $19/mo (Unlimited)</button>
+  
+  <    <div id="results" class="results" style="display:none;"></div>
+    
+    <script src="script.js"></script>
+  </body>
+</html>
