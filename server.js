@@ -65,7 +65,9 @@ app.post("/api/blast", async (req, res) => {
     });
 
   } catch (err) {
-    console.log("ERROR:", err.response?.data || err.message);
+    console.log("FULL SPOTIFY ERROR:");
+console.log(err.response?.data || err);
+console.log("STATUS:", err.response?.status);
 
     res.status(500).json({
       error: "Spotify API failed (auth issue)",
