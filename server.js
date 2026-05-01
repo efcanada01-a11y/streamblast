@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// 🎯 REAL SPOTIFY API CONNECTION
+// 🚀 BLAST ENDPOINT
 app.post("/api/blast", async (req, res) => {
   const { songUrl } = req.body;
 
@@ -25,27 +25,26 @@ app.post("/api/blast", async (req, res) => {
   try {
     const trackId = songUrl.split("/track/")[1].split("?")[0];
 
-    // 🔐 GET ACCESS TOKEN
-    const tokenResponse = await axios.post(
-      "https://accounts.spotify.com/api/token",
-      new URLSearchParams({ grant_type: "client_credentials" }),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization:
-            "Basic " +
-            Buffer.from(
-              process.env.SPOTIFY_CLIENT_ID +
-              ":" +
-              process.env.SPOTIFY_CLIENT_SECRET
-            ).toString("base64"),
-        },
-      }
-    );
+    // 🔐 FIXED TOKEN REQUEST (IMPORTANT CHANGE HERE)
+    const tokenResponse = await axios({
+      method: "post",
+      url: "https://accounts.spotify.com/api/token",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " +
+          Buffer.from(
+            process.env.SPOTIFY_CLIENT_ID +
+            ":" +
+            process.env.SPOTIFY_CLIENT_SECRET
+          ).toString("base64"),
+      },
+      data: "grant_type=client_credentials",
+    });
 
     const token = tokenResponse.data.access_token;
 
-    // 🎵 GET SONG DATA
+    // 🎵 GET TRACK
     const trackResponse = await axios.get(
       `https://api.spotify.com/v1/tracks/${trackId}`,
       {
@@ -57,15 +56,20 @@ app.post("/api/blast", async (req, res) => {
 
     const song = trackResponse.data;
 
+    console.log("SPOTIFY RESPONSE OK");
+
     res.json({
-      artist: song.artists[0].name,
-      title: song.name,
       success: true,
+      artist: song?.artists?.[0]?.name || "Unknown Artist",
+      title: song?.name || "Unknown Title",
     });
 
   } catch (err) {
-    console.log(err.message);
-    res.status(500).json({ error: "Spotify API failed" });
+    console.log("ERROR:", err.response?.data || err.message);
+
+    res.status(500).json({
+      error: "Spotify API failed (auth issue)",
+    });
   }
 });
 
