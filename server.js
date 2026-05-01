@@ -65,14 +65,16 @@ app.post("/api/blast", async (req, res) => {
     });
 
   } catch (err) {
-    console.log("FULL SPOTIFY ERROR:");
-console.log(err.response?.data || err);
-console.log("STATUS:", err.response?.status);
+  console.log("🔥 FULL SPOTIFY ERROR START 🔥");
+  console.log("STATUS:", err.response?.status);
+  console.log("DATA:", err.response?.data);
+  console.log("MESSAGE:", err.message);
+  console.log("🔥 FULL SPOTIFY ERROR END 🔥");
 
-    res.status(500).json({
-      error: "Spotify API failed (auth issue)",
-    });
-  }
+  return res.status(500).json({
+    error: "Spotify API failed (check server logs)"
+  });
+}
 });
 
 const PORT = 3000;
